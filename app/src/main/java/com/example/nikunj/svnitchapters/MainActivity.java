@@ -41,6 +41,11 @@ public class MainActivity extends AppCompatActivity {
         btn_login=(Button)findViewById(R.id.btn_login);
         link_signup=(TextView)findViewById(R.id.link_signup);
         firebaseAuth=FirebaseAuth.getInstance();
+        if(firebaseAuth.getCurrentUser()!=null)
+        {
+            finish();
+            startActivity(new Intent(this,Chapters.class));
+        }
         btn_login.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -48,10 +53,10 @@ public class MainActivity extends AppCompatActivity {
                 inputemail=input_email.getText().toString().trim();
                 inputpassword=input_password.getText().toString().trim();
                 if (TextUtils.isEmpty(inputemail)) {
-                    Toast.makeText(MainActivity.this, "Please enter Name", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Please enter Email", Toast.LENGTH_SHORT).show();
                     return;
                 } else if (TextUtils.isEmpty(inputpassword)) {
-                    Toast.makeText(MainActivity.this, "Please enter Admission number", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Please enter Password", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 progressDialog.setMessage("Logging in...");
@@ -60,7 +65,12 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         progressDialog.dismiss();
-                        if(task.isSuccessful())Toast.makeText(MainActivity.this,"Successfully Logged in.",Toast.LENGTH_SHORT).show();
+                        if(task.isSuccessful()) {
+                            Toast.makeText(MainActivity.this, "Successfully Logged in.", Toast.LENGTH_SHORT).show();
+                            finish();
+                            startActivity(new Intent(MainActivity.this,Chapters.class));
+                        }
+
                         else Toast.makeText(MainActivity.this,"Try Again.",Toast.LENGTH_SHORT).show();
                     }
 
