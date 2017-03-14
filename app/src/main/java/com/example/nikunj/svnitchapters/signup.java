@@ -53,7 +53,11 @@ public class signup extends AppCompatActivity {
         firebaseAuth1=FirebaseAuth.getInstance();
         progressDialog1=new ProgressDialog(this);
         databaseReference1= FirebaseDatabase.getInstance().getReference().child("users");
-
+        if(firebaseAuth1.getCurrentUser()!=null)
+        {
+            finish();
+            startActivity(new Intent(this,Chapters.class));
+        }
 
         btn_signup1.setOnClickListener(new View.OnClickListener() {
                                            @Override
@@ -92,6 +96,8 @@ public class signup extends AppCompatActivity {
                                                            databaseReference1.keepSynced(true);
 
                                                            Toast.makeText(signup.this, "Successfully Registered.", Toast.LENGTH_SHORT).show();
+                                                           finish();
+                                                           startActivity(new Intent(signup.this,Chapters.class));
                                                        }
                                                        else
                                                        {
