@@ -48,7 +48,7 @@ public class Chapters extends AppCompatActivity
         databaseReference2.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                inputname2= dataSnapshot.child("Password").getValue().toString();
+                inputname2= dataSnapshot.child("Admission").getValue().toString();
             }
 
             @Override
