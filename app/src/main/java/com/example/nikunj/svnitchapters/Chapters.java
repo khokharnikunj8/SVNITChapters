@@ -48,12 +48,12 @@ public class Chapters extends AppCompatActivity
         databaseReference2.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                inputname2= dataSnapshot.child("Admission").getValue().toString();
+                inputname2= dataSnapshot.child("Name").getValue().toString();
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                
             }
         });
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -103,6 +103,9 @@ public class Chapters extends AppCompatActivity
         if (id == R.id.action_settings) {
             return true;
         }
+        else if (id == R.id.action_theme1) {
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -119,11 +122,11 @@ public class Chapters extends AppCompatActivity
 
         } else if (id == R.id.nav_slideshow) {
 
-        } else if (id == R.id.nav_manage) {
-
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
+
+        } else if (id == R.id.signout3) {
 
         }
 
