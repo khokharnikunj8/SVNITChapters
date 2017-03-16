@@ -127,6 +127,9 @@ public class Chapters extends AppCompatActivity
         } else if (id == R.id.nav_send) {
 
         } else if (id == R.id.signout3) {
+         firebaseAuth2.signOut();
+            finish();
+            startActivity(new Intent(this,MainActivity.class));
 
         }
 
