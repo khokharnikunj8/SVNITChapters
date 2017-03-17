@@ -4,6 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -21,6 +26,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Chapters extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -42,13 +50,13 @@ public class Chapters extends AppCompatActivity
             startActivity(new Intent(this,MainActivity.class));
         }
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        Toolbar toolbar2 = (Toolbar) findViewById(R.id.toolbar2);
+        setSupportActionBar(toolbar2);
        databaseReference2=FirebaseDatabase.getInstance().getReference().child("users").child(firebaseAuth2.getCurrentUser().getUid());
         databaseReference2.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                inputname2= dataSnapshot.child("Admission").getValue().toString();
+                inputname2= dataSnapshot.child("Name").getValue().toString();
             }
 
             @Override
@@ -67,14 +75,56 @@ public class Chapters extends AppCompatActivity
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, toolbar2, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        ViewPager viewPager = (ViewPager)findViewById(R.id.tab_viewpager);
+        if(viewPager!=null)
+        {
+            setupViewPager(viewPager);
+        }
+
+        TabLayout tabLayout=(TabLayout)findViewById(R.id.tabLayout);
+        tabLayout.setupWithViewPager(viewPager);
     }
 
+    public void setupViewPager(ViewPager viewPager){
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFrag(new Announcements(), "Announcements");
+
+        viewPager.setAdapter(adapter);
+    }
+    static class ViewPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
+        public ViewPagerAdapter(FragmentManager manager){
+            super(manager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        public void addFrag(Fragment fragment, String title){
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position){
+            return mFragmentTitleList.get(position);
+        }
+    }
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -103,6 +153,9 @@ public class Chapters extends AppCompatActivity
         if (id == R.id.action_settings) {
             return true;
         }
+        else if (id == R.id.action_theme1) {
+                        return true;
+                   }
 
         return super.onOptionsItemSelected(item);
     }
@@ -119,8 +172,10 @@ public class Chapters extends AppCompatActivity
 
         } else if (id == R.id.nav_slideshow) {
 
-        } else if (id == R.id.nav_manage) {
-
+        } else if (id == R.id.signout3) {
+            firebaseAuth2.signOut();
+            finish();
+            startActivity(new Intent(this,MainActivity.class));
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
