@@ -61,7 +61,7 @@ public class Chapters extends AppCompatActivity
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                
             }
         });
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -154,8 +154,11 @@ public class Chapters extends AppCompatActivity
             return true;
         }
         else if (id == R.id.action_theme1) {
+
                         return true;
                    }
+
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -172,13 +175,20 @@ public class Chapters extends AppCompatActivity
 
         } else if (id == R.id.nav_slideshow) {
 
+
         } else if (id == R.id.signout3) {
             firebaseAuth2.signOut();
             finish();
             startActivity(new Intent(this,MainActivity.class));
+      
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
+
+        } else if (id == R.id.signout3) {
+         firebaseAuth2.signOut();
+            finish();
+            startActivity(new Intent(this,MainActivity.class));
 
         }
 
