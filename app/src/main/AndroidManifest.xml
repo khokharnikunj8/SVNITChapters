@@ -22,7 +22,8 @@
         <activity
             android:name=".Chapters"
             android:label="@string/title_activity_chapters"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".AboutUs"></activity>
     </application>
 
 </manifest>
