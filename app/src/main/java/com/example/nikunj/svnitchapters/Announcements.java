@@ -4,75 +4,105 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link Announcements.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link Announcements#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class Announcements extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    private OnFragmentInteractionListener mListener;
-
-    public Announcements() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Announcements.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static Announcements newInstance(String param1, String param2) {
-        Announcements fragment = new Announcements();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
+    public  RecyclerView recycle;
+    public DatabaseReference databaseReference3;
+    public FirebaseRecyclerAdapter firebaseRecyclerAdapter3;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_announcements, container, false);
+       View rootView= inflater.inflate(R.layout.fragment_announcements, container, false);
+        recycle=(RecyclerView)rootView.findViewById(R.id.recycle);
+        recycle.setHasFixedSize(true);
+
+        databaseReference3= FirebaseDatabase.getInstance().getReference().child("Announcements");
+        databaseReference3.keepSynced(true);
+        firebaseRecyclerAdapter3 = new FirebaseRecyclerAdapter<publish, BlogViewHolder>(
+                publish.class,
+                R.layout.framework,
+                BlogViewHolder.class,
+                databaseReference3
+        ) {
+
+
+            @Override
+            protected void populateViewHolder(BlogViewHolder viewHolder, final publish model, int position) {
+                viewHolder.setTitle(model.getTitle());
+                viewHolder.setdesc(model.getDesc());
+                viewHolder.setimg(getActivity().getApplicationContext(),model.getImage());
+                viewHolder.view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(getActivity(),model.getTitle(),Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            }
+        };
+
+        recycle.setAdapter(firebaseRecyclerAdapter3);
+        recycle.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        return rootView;
     }
+    public static class BlogViewHolder extends RecyclerView.ViewHolder
+    {
+
+        View view;
+        public BlogViewHolder(View itemView) {
+            super(itemView);
+            view=itemView;
+        }
+        public void setTitle(String Title)
+        {
+            TextView posttitle = (TextView)view.findViewById(R.id.posttitle);
+            posttitle.setText(Title);
+        }
+        public void setdesc(String postdesc)
+        {
+            TextView postdes = (TextView)view.findViewById(R.id.postdes);
+            postdes.setText(postdesc);
+        }
+        public void setimg(final Context ctx, final String postimag)
+        {
+            final ImageView postimage = (ImageView)view.findViewById(R.id.postimage);
+            Picasso.with(ctx).load(postimag).networkPolicy(NetworkPolicy.OFFLINE).into(postimage, new Callback() {
+                @Override
+                public void onSuccess() {
+
+                }
+
+                @Override
+                public void onError() {
+                    Picasso.with(ctx).load(postimag).into(postimage);
+
+                }
+            });
 
 
-
-
-
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        }
     }
 }
+
+
+
+
+

@@ -35,7 +35,7 @@ public class Chapters extends AppCompatActivity
     public FirebaseAuth firebaseAuth2;
 
     public DatabaseReference databaseReference2;
-
+    public ViewPager viewPager;
     public String inputname2;
 
     @Override
@@ -81,7 +81,7 @@ public class Chapters extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        ViewPager viewPager = (ViewPager)findViewById(R.id.tab_viewpager);
+        viewPager = (ViewPager)findViewById(R.id.tab_viewpager);
         if(viewPager!=null)
         {
             setupViewPager(viewPager);
@@ -89,6 +89,22 @@ public class Chapters extends AppCompatActivity
 
         TabLayout tabLayout=(TabLayout)findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(viewPager);
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
     public void setupViewPager(ViewPager viewPager){
@@ -96,6 +112,7 @@ public class Chapters extends AppCompatActivity
         adapter.addFrag(new Announcements(), "Announcements");
 
         viewPager.setAdapter(adapter);
+
     }
     static class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
