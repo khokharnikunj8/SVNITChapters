@@ -1,8 +1,10 @@
 package com.example.nikunj.svnitchapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -38,9 +40,9 @@ public class Announcements extends Fragment {
         get();
 
         recycle.setAdapter(firebaseRecyclerAdapter3);
-
+        firebaseRecyclerAdapter3.notifyDataSetChanged();
         databaseReference3.keepSynced(true);
-
+        recycle.invalidate();
         return rootView;
     }
     public void get()
@@ -62,7 +64,9 @@ public class Announcements extends Fragment {
                 viewHolder.view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getActivity(),model.getTitle(),Toast.LENGTH_SHORT).show();
+
+                        startActivity(new Intent(getActivity(),activepost.class).putExtra("publish",(Parcelable)model));
+
                     }
                 });
 
