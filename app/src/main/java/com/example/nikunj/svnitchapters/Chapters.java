@@ -45,7 +45,7 @@ public class Chapters extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chapters);
-        MobileAds.initialize(getApplicationContext(), "ca-app-pub-7496000905076381~4987174357");
+       
         firebaseAuth2=FirebaseAuth.getInstance();
 
         if(firebaseAuth2.getCurrentUser()==null)
