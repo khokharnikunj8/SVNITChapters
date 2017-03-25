@@ -24,7 +24,7 @@ import com.squareup.picasso.Picasso;
 public class Announcements extends Fragment {
     public  RecyclerView recycle;
     public DatabaseReference databaseReference3;
-    public FirebaseRecyclerAdapter firebaseRecyclerAdapter3;
+    public FirebaseRecyclerAdapter<publish,BlogViewHolder> firebaseRecyclerAdapter3;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -32,8 +32,19 @@ public class Announcements extends Fragment {
        View rootView= inflater.inflate(R.layout.fragment_announcements, container, false);
         recycle=(RecyclerView)rootView.findViewById(R.id.recycle);
         recycle.setHasFixedSize(true);
+        recycle.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         databaseReference3= FirebaseDatabase.getInstance().getReference().child("Announcements");
+        get();
+
+        recycle.setAdapter(firebaseRecyclerAdapter3);
+
+        databaseReference3.keepSynced(true);
+
+        return rootView;
+    }
+    public void get()
+    {
         databaseReference3.keepSynced(true);
         firebaseRecyclerAdapter3 = new FirebaseRecyclerAdapter<publish, BlogViewHolder>(
                 publish.class,
@@ -57,11 +68,6 @@ public class Announcements extends Fragment {
 
             }
         };
-
-        recycle.setAdapter(firebaseRecyclerAdapter3);
-        recycle.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        return rootView;
     }
     public static class BlogViewHolder extends RecyclerView.ViewHolder
     {
@@ -100,6 +106,7 @@ public class Announcements extends Fragment {
 
         }
     }
+
 }
 
 
