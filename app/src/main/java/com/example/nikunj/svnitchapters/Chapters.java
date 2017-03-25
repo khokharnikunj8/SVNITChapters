@@ -20,6 +20,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -42,6 +45,7 @@ public class Chapters extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chapters);
+        MobileAds.initialize(getApplicationContext(), "ca-app-pub-7496000905076381~4987174357");
         firebaseAuth2=FirebaseAuth.getInstance();
 
         if(firebaseAuth2.getCurrentUser()==null)
@@ -49,6 +53,7 @@ public class Chapters extends AppCompatActivity
             finish();
             startActivity(new Intent(this,MainActivity.class));
         }
+
 
         Toolbar toolbar2 = (Toolbar) findViewById(R.id.toolbar2);
         setSupportActionBar(toolbar2);
@@ -82,10 +87,10 @@ public class Chapters extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         viewPager = (ViewPager)findViewById(R.id.tab_viewpager);
-        if(viewPager!=null)
-        {
+
+
             setupViewPager(viewPager);
-        }
+
 
         TabLayout tabLayout=(TabLayout)findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(viewPager);
@@ -107,11 +112,13 @@ public class Chapters extends AppCompatActivity
         });
     }
 
+
     public void setupViewPager(ViewPager viewPager){
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(new Announcements(), "Announcements");
 
         viewPager.setAdapter(adapter);
+
 
     }
     static class ViewPagerAdapter extends FragmentPagerAdapter {
@@ -152,6 +159,7 @@ public class Chapters extends AppCompatActivity
         }
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -187,12 +195,13 @@ public class Chapters extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
+            viewPager.setCurrentItem(0);
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
-
+            viewPager.setCurrentItem(0);
         } else if (id == R.id.nav_slideshow) {
 
-
+            viewPager.setCurrentItem(0);
         } else if (id == R.id.signout3) {
             firebaseAuth2.signOut();
             finish();
