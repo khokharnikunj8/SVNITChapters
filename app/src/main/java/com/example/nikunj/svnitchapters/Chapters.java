@@ -45,7 +45,7 @@ public class Chapters extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chapters);
-       
+
         firebaseAuth2=FirebaseAuth.getInstance();
 
         if(firebaseAuth2.getCurrentUser()==null)
@@ -117,6 +117,7 @@ public class Chapters extends AppCompatActivity
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(new Announcements(), "Announcements");
 
+        adapter.notifyDataSetChanged();
         viewPager.setAdapter(adapter);
 
 
