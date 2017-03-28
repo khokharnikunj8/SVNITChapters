@@ -9,7 +9,7 @@ import android.os.Parcelable;
 
 
 public class publish implements Parcelable {
-    private String title , image , desc;
+    private String title , image , desc,id;
     public publish(){
 
     }
@@ -24,6 +24,7 @@ public class publish implements Parcelable {
         title = in.readString();
         image = in.readString();
         desc = in.readString();
+        id=in.readString();
     }
 
     public static final Creator<publish> CREATOR = new Creator<publish>() {
@@ -62,6 +63,9 @@ public class publish implements Parcelable {
         this.image = image;
     }
 
+    public String getId(){
+        return id;
+    }
     @Override
     public int describeContents() {
         return 0;
@@ -72,5 +76,6 @@ public class publish implements Parcelable {
         dest.writeString(title);
         dest.writeString(image);
         dest.writeString(desc);
+        dest.writeString(id);
     }
 }
