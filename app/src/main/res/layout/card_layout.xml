@@ -15,12 +15,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Demo"
+            android:id="@+id/title4"
             android:textSize="20sp"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Hello"
+            android:id="@+id/desc4"
             android:textSize="18sp"/>
 
     </LinearLayout>

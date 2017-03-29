@@ -116,6 +116,7 @@ public class Chapters extends AppCompatActivity
     public void setupViewPager(ViewPager viewPager){
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(new Announcements(), "Announcements");
+        adapter.addFrag(new GDG(),"GDG");
 
         adapter.notifyDataSetChanged();
         viewPager.setAdapter(adapter);
