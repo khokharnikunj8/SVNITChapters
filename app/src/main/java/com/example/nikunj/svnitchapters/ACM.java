@@ -23,7 +23,7 @@ import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 
-public class GDG extends Fragment {
+public class ACM extends Fragment {
     public  RecyclerView recycle;
     public DatabaseReference databaseReference3;
     public FirebaseRecyclerAdapter<publish,BlogViewHolder> firebaseRecyclerAdapter3;

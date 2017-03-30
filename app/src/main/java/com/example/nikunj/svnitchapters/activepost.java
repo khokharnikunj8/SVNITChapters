@@ -42,7 +42,7 @@ public class activepost extends AppCompatActivity {
         pb = (publish) i.getParcelableExtra("publish");
         postimage4=(ImageView)findViewById(R.id.postimage4);
         desc4=(TextView)findViewById(R.id.desc4);
-        databaseReference4=FirebaseDatabase.getInstance().getReference().child("Announcements").child(pb.getId());
+
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbarLayout.setTitle(pb.getTitle().toString());
         picassoLoader(this, postimage4, pb.getImage());

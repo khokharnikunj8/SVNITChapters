@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         btn_login=(Button)findViewById(R.id.btn_login);
         link_signup=(TextView)findViewById(R.id.link_signup);
         firebaseAuth=FirebaseAuth.getInstance();
-        if(firebaseAuth.getCurrentUser()!=null)
+        if(firebaseAuth.getCurrentUser()!=null&&firebaseAuth.getCurrentUser().isEmailVerified())
         {
             finish();
             startActivity(new Intent(this,Chapters.class));
@@ -69,9 +70,18 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         progressDialog.dismiss();
                         if(task.isSuccessful()) {
-                            Toast.makeText(MainActivity.this, "Successfully Logged in.", Toast.LENGTH_SHORT).show();
-                            finish();
-                            startActivity(new Intent(MainActivity.this,Chapters.class));
+                            FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
+                            FirebaseUser firebaseUser=firebaseAuth.getCurrentUser();
+                            if(firebaseUser.isEmailVerified())
+                            {
+                                Toast.makeText(MainActivity.this, "Successfully Logged in.", Toast.LENGTH_SHORT).show();
+                                finish();
+                                startActivity(new Intent(MainActivity.this,Chapters.class));
+                            }
+                            else{
+                                Toast.makeText(MainActivity.this, "Please verify your email.", Toast.LENGTH_SHORT).show();
+                            }
+
                         }
 
                         else Toast.makeText(MainActivity.this,"Try Again.",Toast.LENGTH_SHORT).show();
