@@ -1,5 +1,6 @@
 package com.example.nikunj.svnitchapters;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -41,6 +42,7 @@ public class Chapters extends AppCompatActivity
     public ViewPager viewPager;
     public String inputname2;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +50,7 @@ public class Chapters extends AppCompatActivity
 
         firebaseAuth2=FirebaseAuth.getInstance();
 
-        if(firebaseAuth2.getCurrentUser()==null)
+        if(firebaseAuth2.getCurrentUser()==null||!firebaseAuth2.getCurrentUser().isEmailVerified())
         {
             finish();
             startActivity(new Intent(this,MainActivity.class));
@@ -73,7 +75,7 @@ public class Chapters extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, inputname2, Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "for more queries , contact to khokharnikunj8@gmail.com", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -117,6 +119,7 @@ public class Chapters extends AppCompatActivity
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(new Announcements(), "Announcements");
         adapter.addFrag(new GDG(),"GDG");
+        adapter.addFrag(new ACM(),"ACM");
 
         adapter.notifyDataSetChanged();
         viewPager.setAdapter(adapter);

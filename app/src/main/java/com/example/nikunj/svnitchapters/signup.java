@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -52,8 +53,9 @@ public class signup extends AppCompatActivity {
         btn_signup1=(Button)findViewById(R.id.btn_signup1);
         firebaseAuth1=FirebaseAuth.getInstance();
         progressDialog1=new ProgressDialog(this);
+
         databaseReference1= FirebaseDatabase.getInstance().getReference().child("users");
-        if(firebaseAuth1.getCurrentUser()!=null)
+        if(firebaseAuth1.getCurrentUser()!=null&&firebaseAuth1.getCurrentUser().isEmailVerified())
         {
             finish();
             startActivity(new Intent(this,Chapters.class));
@@ -94,10 +96,22 @@ public class signup extends AppCompatActivity {
                                                            current.child("Password").setValue(inputpassword1);
                                                            current.child("Admission").setValue(inputadmnum1);
                                                            databaseReference1.keepSynced(true);
+                                                           FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-                                                           Toast.makeText(signup.this, "Successfully Registered.", Toast.LENGTH_SHORT).show();
+                                                           if (user != null) {
+                                                               user.sendEmailVerification()
+                                                                       .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                           @Override
+                                                                           public void onComplete(@NonNull Task<Void> task) {
+                                                                               if (task.isSuccessful()) {
+                                                                                   Toast.makeText(signup.this, "Please verify your email", Toast.LENGTH_SHORT).show();
+                                                                               }
+                                                                           }
+                                                                       });
+                                                           }
+
                                                            finish();
-                                                           startActivity(new Intent(signup.this,Chapters.class));
+                                                           startActivity(new Intent(signup.this,MainActivity.class));
                                                        }
                                                        else
                                                        {

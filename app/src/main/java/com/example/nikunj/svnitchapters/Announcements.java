@@ -1,5 +1,6 @@
 package com.example.nikunj.svnitchapters;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -25,6 +26,7 @@ import com.squareup.picasso.Picasso;
 
 public class Announcements extends Fragment {
     public  RecyclerView recycle;
+    public ProgressDialog progressDialog4;
     public DatabaseReference databaseReference3;
     public FirebaseRecyclerAdapter<publish,BlogViewHolder> firebaseRecyclerAdapter3;
     @Override
@@ -33,11 +35,17 @@ public class Announcements extends Fragment {
         // Inflate the layout for this fragment
        View rootView= inflater.inflate(R.layout.fragment_announcements, container, false);
         recycle=(RecyclerView)rootView.findViewById(R.id.recycle);
-        recycle.setHasFixedSize(true);
+
         recycle.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         databaseReference3= FirebaseDatabase.getInstance().getReference().child("Announcements");
+        progressDialog4=new ProgressDialog(getActivity());
+        progressDialog4.setCanceledOnTouchOutside(false);
+        progressDialog4.setMessage("preparing for first time....");
+
+        progressDialog4.show();
         get();
+
 
         recycle.setAdapter(firebaseRecyclerAdapter3);
         firebaseRecyclerAdapter3.notifyDataSetChanged();
@@ -61,6 +69,8 @@ public class Announcements extends Fragment {
                 viewHolder.setTitle(model.getTitle());
                 viewHolder.setdesc(model.getDesc());
                 viewHolder.setimg(getActivity().getApplicationContext(),model.getImage());
+                viewHolder.setDate(model.getDate());
+                progressDialog4.dismiss();
                 viewHolder.view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -80,6 +90,11 @@ public class Announcements extends Fragment {
         public BlogViewHolder(View itemView) {
             super(itemView);
             view=itemView;
+        }
+        public void setDate(String date)
+        {
+            TextView postdate=(TextView)view.findViewById(R.id.postdate);
+            postdate.setText(date);
         }
         public void setTitle(String Title)
         {
