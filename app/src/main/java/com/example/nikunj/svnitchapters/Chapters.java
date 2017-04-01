@@ -120,6 +120,7 @@ public class Chapters extends AppCompatActivity
         adapter.addFrag(new Announcements(), "Announcements");
         adapter.addFrag(new GDG(),"GDG");
         adapter.addFrag(new ACM(),"ACM");
+        adapter.addFrag(new Drishti(),"Drishti");
 
         adapter.notifyDataSetChanged();
         viewPager.setAdapter(adapter);
@@ -214,6 +215,7 @@ public class Chapters extends AppCompatActivity
       
         } else if (id == R.id.nav_share) {
 
+            startActivity(new Intent(this,AboutUs.class));
         } else if (id == R.id.nav_send) {
 
         } else if (id == R.id.signout3) {

@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.nikunj.svnitchapters.AboutUs">
 
-    <TextView
+    tools:context="com.example.nikunj.svnitchapters.AboutUs"
+
+   >
+
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView5"
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Developers"
-        android:gravity="center"/>
-</android.support.constraint.ConstraintLayout>
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_ad_unit_id"
+
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="0dp">
+    </com.google.android.gms.ads.AdView>
+</RelativeLayout>
