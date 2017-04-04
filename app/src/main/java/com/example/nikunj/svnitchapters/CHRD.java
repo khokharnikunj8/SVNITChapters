@@ -1,5 +1,6 @@
 package com.example.nikunj.svnitchapters;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -23,8 +24,9 @@ import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 
-public class ACM extends Fragment {
+public class CHRD extends Fragment {
     public  RecyclerView recycle;
+    public ProgressDialog progressDialog4;
     public DatabaseReference databaseReference3;
     public FirebaseRecyclerAdapter<publish,BlogViewHolder> firebaseRecyclerAdapter3;
     @Override
@@ -36,8 +38,10 @@ public class ACM extends Fragment {
 
         recycle.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        databaseReference3= FirebaseDatabase.getInstance().getReference().child("ACM");
+        databaseReference3= FirebaseDatabase.getInstance().getReference().child("CHRD");
+
         get();
+
 
         recycle.setAdapter(firebaseRecyclerAdapter3);
         firebaseRecyclerAdapter3.notifyDataSetChanged();
@@ -62,6 +66,7 @@ public class ACM extends Fragment {
                 viewHolder.setdesc(model.getDesc());
                 viewHolder.setimg(getActivity().getApplicationContext(),model.getImage());
                 viewHolder.setDate(model.getDate());
+
                 viewHolder.view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -82,15 +87,15 @@ public class ACM extends Fragment {
             super(itemView);
             view=itemView;
         }
-        public void setTitle(String Title)
-        {
-            TextView posttitle = (TextView)view.findViewById(R.id.posttitle);
-            posttitle.setText(Title);
-        }
         public void setDate(String date)
         {
             TextView postdate=(TextView)view.findViewById(R.id.postdate);
             postdate.setText(date);
+        }
+        public void setTitle(String Title)
+        {
+            TextView posttitle = (TextView)view.findViewById(R.id.posttitle);
+            posttitle.setText(Title);
         }
         public void setdesc(String postdesc)
         {

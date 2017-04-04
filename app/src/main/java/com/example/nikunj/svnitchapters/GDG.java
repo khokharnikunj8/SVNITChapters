@@ -2,9 +2,12 @@ package com.example.nikunj.svnitchapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.DrawableRes;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,6 +30,7 @@ public class GDG extends Fragment {
     public  RecyclerView recycle;
     public DatabaseReference databaseReference3;
     public FirebaseRecyclerAdapter<publish,BlogViewHolder> firebaseRecyclerAdapter3;
+    public ImageView image2;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -38,6 +42,9 @@ public class GDG extends Fragment {
 
         databaseReference3= FirebaseDatabase.getInstance().getReference().child("GDG");
         get();
+        image2=(ImageView)rootView.findViewById(R.id.image2);
+       
+
 
         recycle.setAdapter(firebaseRecyclerAdapter3);
         firebaseRecyclerAdapter3.notifyDataSetChanged();

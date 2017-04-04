@@ -38,6 +38,7 @@ public class activepost extends AppCompatActivity {
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
         setContentView(R.layout.activity_activepost);
         getSupportActionBar().hide();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent i = getIntent();
         pb = (publish) i.getParcelableExtra("publish");
         postimage4=(ImageView)findViewById(R.id.postimage4);
@@ -46,6 +47,7 @@ public class activepost extends AppCompatActivity {
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbarLayout.setTitle(pb.getTitle().toString());
         picassoLoader(this, postimage4, pb.getImage());
+        desc4.setText(pb.getDescription());
 
 
 
