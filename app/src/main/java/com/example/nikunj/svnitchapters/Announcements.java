@@ -29,6 +29,7 @@ public class Announcements extends Fragment {
     public ProgressDialog progressDialog4;
     public DatabaseReference databaseReference3;
     public FirebaseRecyclerAdapter<publish,BlogViewHolder> firebaseRecyclerAdapter3;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -78,6 +79,14 @@ public class Announcements extends Fragment {
 
             }
         };
+    }
+    public void picassoLoader(Context context, ImageView imageView, String url){
+
+        Picasso.with(context)
+                .load(url)
+                //.resize(30,30)
+
+                .into(imageView);
     }
     public static class BlogViewHolder extends RecyclerView.ViewHolder
     {

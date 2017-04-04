@@ -68,6 +68,10 @@ public class publish implements Parcelable {
     public String getDate(){
         return date;
     }
+
+    public String getDescription(){
+        return  description;
+    }
     @Override
     public int describeContents() {
         return 0;
@@ -78,8 +82,8 @@ public class publish implements Parcelable {
         dest.writeString(title);
         dest.writeString(image);
         dest.writeString(desc);
-        dest.writeString(description);
-        dest.writeString(likes);
         dest.writeString(date);
+        dest.writeString(likes);
+        dest.writeString(description);
     }
 }

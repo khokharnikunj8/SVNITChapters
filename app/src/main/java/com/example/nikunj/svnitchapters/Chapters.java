@@ -19,6 +19,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
@@ -41,7 +42,7 @@ public class Chapters extends AppCompatActivity
     public DatabaseReference databaseReference2;
     public ViewPager viewPager;
     public String inputname2;
-
+    public ImageView image2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +89,7 @@ public class Chapters extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        image2=(ImageView)findViewById(R.id.image2);
         viewPager = (ViewPager)findViewById(R.id.tab_viewpager);
 
 
@@ -121,7 +123,9 @@ public class Chapters extends AppCompatActivity
         adapter.addFrag(new GDG(),"GDG");
         adapter.addFrag(new ACM(),"ACM");
         adapter.addFrag(new Drishti(),"Drishti");
-
+        adapter.addFrag(new LAC(),"LAC");
+        adapter.addFrag(new SAE(),"SAE");
+        adapter.addFrag(new CHRD(),"CHRD");
         adapter.notifyDataSetChanged();
         viewPager.setAdapter(adapter);
 
