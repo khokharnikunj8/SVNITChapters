@@ -12,9 +12,7 @@ public class AboutUs extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_us);
-        adView5=(AdView)findViewById(R.id.adView5);
-        AdRequest adRequest5=new AdRequest.Builder().build();
-        adView5.loadAd(adRequest5);
+
         
     }
 }
