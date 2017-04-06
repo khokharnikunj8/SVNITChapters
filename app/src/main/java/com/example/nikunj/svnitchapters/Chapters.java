@@ -20,11 +20,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -77,7 +73,7 @@ public class Chapters extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, databaseReference2.child("Admission").getDatabase().toString(), Snackbar.LENGTH_LONG)
+                Snackbar.make(view,"hye", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });

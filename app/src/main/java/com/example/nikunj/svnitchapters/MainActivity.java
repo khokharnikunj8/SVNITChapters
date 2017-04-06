@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
                             {
                                 Toast.makeText(MainActivity.this, "Successfully Logged in.", Toast.LENGTH_SHORT).show();
                                 finish();
+
                                 startActivity(new Intent(MainActivity.this,Chapters.class));
                             }
                             else{
