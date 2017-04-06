@@ -44,6 +44,7 @@ public class Chapters extends AppCompatActivity
     public String inputname2;
     public ImageView image2;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,7 +77,7 @@ public class Chapters extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "for more queries , contact to khokharnikunj8@gmail.com", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, databaseReference2.child("Admission").getDatabase().toString(), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });

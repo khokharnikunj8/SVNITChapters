@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Callback;
@@ -28,6 +29,9 @@ public class Announcements extends Fragment {
     public  RecyclerView recycle;
     public ProgressDialog progressDialog4;
     public DatabaseReference databaseReference3;
+    public DatabaseReference udatabaseReference3;
+    public FirebaseAuth firebaseAuth3;
+    public String suffix;
     public FirebaseRecyclerAdapter<publish,BlogViewHolder> firebaseRecyclerAdapter3;
 
     @Override
@@ -38,11 +42,11 @@ public class Announcements extends Fragment {
         recycle=(RecyclerView)rootView.findViewById(R.id.recycle);
 
         recycle.setLayoutManager(new LinearLayoutManager(getActivity()));
-
+        firebaseAuth3=FirebaseAuth.getInstance();
         databaseReference3= FirebaseDatabase.getInstance().getReference().child("Announcements");
-
+        udatabaseReference3=FirebaseDatabase.getInstance().getReference().child("users").child(firebaseAuth3.getCurrentUser().getUid());
         get();
-
+        suffix=udatabaseReference3.child("Admission").getKey().toString();
 
         recycle.setAdapter(firebaseRecyclerAdapter3);
         firebaseRecyclerAdapter3.notifyDataSetChanged();
