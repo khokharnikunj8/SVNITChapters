@@ -1,6 +1,5 @@
 package com.example.nikunj.svnitchapters;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -17,7 +16,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
@@ -54,7 +52,7 @@ public class Chapters extends AppCompatActivity
             startActivity(new Intent(this,MainActivity.class));
         }
 
-else {
+        else {
             Toolbar toolbar2 = (Toolbar) findViewById(R.id.toolbar2);
             setSupportActionBar(toolbar2);
             databaseReference2 = FirebaseDatabase.getInstance().getReference().child("users").child(firebaseAuth2.getCurrentUser().getUid());
@@ -157,7 +155,7 @@ else {
             return mFragmentTitleList.get(position);
         }
     }
-    @Override
+        @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -168,26 +166,9 @@ else {
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.chapters, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
 
 
-        return super.onOptionsItemSelected(item);
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -197,12 +178,16 @@ else {
             viewPager.setCurrentItem(0);
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
-            startActivity(new Intent(this,AboutUs.class));
+
+            startActivity(new Intent(this,Announcement.class));
         }  else if (id == R.id.signout3) {
             firebaseAuth2.signOut();
             finish();
             startActivity(new Intent(this,MainActivity.class));
       
+        }
+        else if(id==R.id.about3){
+            startActivity(new Intent(this,aboutme.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

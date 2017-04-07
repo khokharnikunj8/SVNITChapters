@@ -30,7 +30,7 @@ public class activepost extends AppCompatActivity {
     public publish pb;
     public ImageView postimage4;
     private CollapsingToolbarLayout collapsingToolbarLayout = null;
-    public TextView desc4;
+    public TextView desc4,date4,description4;
     public DatabaseReference databaseReference4;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,12 +43,15 @@ public class activepost extends AppCompatActivity {
         pb = i.getParcelableExtra("publish");
         postimage4=(ImageView)findViewById(R.id.postimage4);
         desc4=(TextView)findViewById(R.id.desc4);
+        date4=(TextView)findViewById(R.id.date4);
+        description4=(TextView)findViewById(R.id.description4);
 
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbarLayout.setTitle(pb.getTitle().toString());
         picassoLoader(this, postimage4, pb.getImage());
-        desc4.setText(pb.getDescription());
-
+        desc4.setText(pb.getDesc());
+        description4.setText(pb.getDescription());
+        date4.setText(pb.getDate());
 
 
 

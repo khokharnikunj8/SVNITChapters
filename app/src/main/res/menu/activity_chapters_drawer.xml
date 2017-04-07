@@ -8,6 +8,7 @@
             android:icon="@drawable/ic_menu_camera"
             android:title="Announcements" />
         <item
+            android:checkable="false"
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_menu_gallery"
             android:title="Classmate Updates" />
@@ -19,7 +20,10 @@
 
     <item android:title="Communicate">
         <menu>
-
+            <item
+                android:id="@+id/about3"
+                android:icon="@drawable/ic_facebook"
+                android:title="About Us"/>
             <item
                 android:id="@+id/signout3"
                 android:icon="@drawable/ic_menu_gallery"

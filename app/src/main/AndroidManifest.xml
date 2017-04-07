@@ -25,7 +25,7 @@
             android:name=".Chapters"
             android:label="@string/title_activity_chapters"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".AboutUs" />
+        <activity android:name=".Announcement" />
 
         <service android:name=".MyFireBaseMessagingService">
             <intent-filter>
@@ -34,7 +34,11 @@
         </service>
 
         <activity android:name=".GDG" />
-        <activity android:name=".activepost"></activity>
+        <activity android:name=".activepost" />
+        <activity
+            android:name=".aboutme"
+            android:label="@string/title_activity_aboutme"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

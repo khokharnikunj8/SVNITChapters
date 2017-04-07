@@ -11,19 +11,32 @@
         android:orientation="vertical"
         android:padding="12dp">
 
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Demo"
             android:id="@+id/title4"
-            android:textSize="20sp"/>
+            android:textSize="30sp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Date"
+            android:id="@+id/date4"
+            android:textSize="15sp"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Hello"
+            android:text="Description"
             android:id="@+id/desc4"
             android:textSize="18sp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Description"
+            android:id="@+id/description4"
+            android:textSize="20sp"/>
 
     </LinearLayout>
 
