@@ -3,7 +3,6 @@ package com.example.nikunj.svnitchapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -26,7 +24,7 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
-public class AboutUs extends AppCompatActivity {
+public class Announcement extends AppCompatActivity {
     public DatabaseReference databaseReference42,databaseReference41;
     public String suffix;
     public RecyclerView recycle4;
@@ -43,7 +41,7 @@ public class AboutUs extends AppCompatActivity {
                 suffix=dataSnapshot.getValue().toString().substring(1,3);
                 databaseReference42 = FirebaseDatabase.getInstance().getReference().child(suffix);
                 recycle4 = (RecyclerView) findViewById(R.id.recycle);
-                recycle4.setLayoutManager(new LinearLayoutManager(AboutUs.this));
+                recycle4.setLayoutManager(new LinearLayoutManager(Announcement.this));
                 get();
                 recycle4.setAdapter(firebaseRecyclerAdapter4);
                 firebaseRecyclerAdapter4.notifyDataSetChanged();
@@ -85,7 +83,7 @@ public class AboutUs extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
 
-                        startActivity(new Intent(AboutUs.this, activepost.class).putExtra("publish", model));
+                        startActivity(new Intent(Announcement.this, activepost.class).putExtra("publish", model));
 
                     }
                 });

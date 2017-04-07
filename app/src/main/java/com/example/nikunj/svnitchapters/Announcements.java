@@ -57,8 +57,7 @@ public class Announcements extends Fragment {
         recycle.invalidate();
         return rootView;
     }
-    public void get()
-    {
+    public void get() {
         databaseReference3.keepSynced(true);
         firebaseRecyclerAdapter3 = new FirebaseRecyclerAdapter<publish, BlogViewHolder>(
                 publish.class,
@@ -89,39 +88,26 @@ public class Announcements extends Fragment {
             }
         };
     }
-    public void picassoLoader(Context context, ImageView imageView, String url){
-
-        Picasso.with(context)
-                .load(url)
-                //.resize(30,30)
-
-                .into(imageView);
-    }
-    public static class BlogViewHolder extends RecyclerView.ViewHolder
-    {
+    public static class BlogViewHolder extends RecyclerView.ViewHolder {
 
         View view;
         public BlogViewHolder(View itemView) {
             super(itemView);
             view=itemView;
         }
-        public void setDate(String date)
-        {
+        public void setDate(String date) {
             TextView postdate=(TextView)view.findViewById(R.id.postdate);
             postdate.setText(date);
         }
-        public void setTitle(String Title)
-        {
+        public void setTitle(String Title) {
             TextView posttitle = (TextView)view.findViewById(R.id.posttitle);
             posttitle.setText(Title);
         }
-        public void setdesc(String postdesc)
-        {
+        public void setdesc(String postdesc) {
             TextView postdes = (TextView)view.findViewById(R.id.postdes);
             postdes.setText(postdesc);
         }
-        public void setimg(final Context ctx, final String postimag)
-        {
+        public void setimg(final Context ctx, final String postimag) {
             final ImageView postimage = (ImageView)view.findViewById(R.id.postimage);
             Picasso.with(ctx).load(postimag).networkPolicy(NetworkPolicy.OFFLINE).into(postimage, new Callback() {
                 @Override
