@@ -9,7 +9,7 @@ import android.os.Parcelable;
 
 
 public class publish implements Parcelable {
-    private String title , image , desc,date,description,likes;
+    private String title , image , desc,date,description,likes,id;
     public publish(){
 
     }
@@ -27,6 +27,7 @@ public class publish implements Parcelable {
         date=in.readString();
         likes=in.readString();
         description=in.readString();
+        id=in.readString();
     }
 
     public static final Creator<publish> CREATOR = new Creator<publish>() {
@@ -72,6 +73,10 @@ public class publish implements Parcelable {
     public String getDescription(){
         return  description;
     }
+
+    public String getId(){
+        return id;
+    }
     @Override
     public int describeContents() {
         return 0;
@@ -85,5 +90,6 @@ public class publish implements Parcelable {
         dest.writeString(date);
         dest.writeString(likes);
         dest.writeString(description);
+        dest.writeString(id);
     }
 }

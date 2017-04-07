@@ -58,6 +58,8 @@ public class ACM extends Fragment {
 
             @Override
             protected void populateViewHolder(BlogViewHolder viewHolder, final publish model, int position) {
+
+
                 viewHolder.setTitle(model.getTitle());
                 viewHolder.setdesc(model.getDesc());
                 viewHolder.setimg(getActivity().getApplicationContext(),model.getImage());

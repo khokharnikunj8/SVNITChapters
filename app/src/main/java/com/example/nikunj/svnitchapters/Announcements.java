@@ -17,8 +17,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
@@ -28,6 +32,9 @@ public class Announcements extends Fragment {
     public  RecyclerView recycle;
     public ProgressDialog progressDialog4;
     public DatabaseReference databaseReference3;
+    public DatabaseReference udatabaseReference3;
+    public FirebaseAuth firebaseAuth3;
+    public String suffix;
     public FirebaseRecyclerAdapter<publish,BlogViewHolder> firebaseRecyclerAdapter3;
 
     @Override
@@ -38,11 +45,11 @@ public class Announcements extends Fragment {
         recycle=(RecyclerView)rootView.findViewById(R.id.recycle);
 
         recycle.setLayoutManager(new LinearLayoutManager(getActivity()));
-
+        firebaseAuth3=FirebaseAuth.getInstance();
         databaseReference3= FirebaseDatabase.getInstance().getReference().child("Announcements");
 
-        get();
 
+        get();
 
         recycle.setAdapter(firebaseRecyclerAdapter3);
         firebaseRecyclerAdapter3.notifyDataSetChanged();
@@ -63,19 +70,21 @@ public class Announcements extends Fragment {
 
             @Override
             protected void populateViewHolder(BlogViewHolder viewHolder, final publish model, int position) {
-                viewHolder.setTitle(model.getTitle());
-                viewHolder.setdesc(model.getDesc());
-                viewHolder.setimg(getActivity().getApplicationContext(),model.getImage());
-                viewHolder.setDate(model.getDate());
 
-                viewHolder.view.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+                        viewHolder.setTitle(model.getTitle());
+                        viewHolder.setdesc(model.getDesc());
+                        viewHolder.setimg(getActivity().getApplicationContext(), model.getImage());
+                        viewHolder.setDate(model.getDate());
 
-                        startActivity(new Intent(getActivity(),activepost.class).putExtra("publish",(Parcelable)model));
+                        viewHolder.view.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
 
-                    }
-                });
+                                startActivity(new Intent(getActivity(), activepost.class).putExtra("publish", (Parcelable) model));
+
+                            }
+                        });
+
 
             }
         };
