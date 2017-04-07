@@ -54,63 +54,64 @@ public class Chapters extends AppCompatActivity
             startActivity(new Intent(this,MainActivity.class));
         }
 
+else {
+            Toolbar toolbar2 = (Toolbar) findViewById(R.id.toolbar2);
+            setSupportActionBar(toolbar2);
+            databaseReference2 = FirebaseDatabase.getInstance().getReference().child("users").child(firebaseAuth2.getCurrentUser().getUid());
+            databaseReference2.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    inputname2 = dataSnapshot.child("Name").getValue().toString();
+                }
 
-        Toolbar toolbar2 = (Toolbar) findViewById(R.id.toolbar2);
-        setSupportActionBar(toolbar2);
-       databaseReference2=FirebaseDatabase.getInstance().getReference().child("users").child(firebaseAuth2.getCurrentUser().getUid());
-        databaseReference2.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                inputname2= dataSnapshot.child("Name").getValue().toString();
-            }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                
-            }
-        });
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view,"hye", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+                }
+            });
+            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Snackbar.make(view, "for more Queries , contact to khokharnikunj8@gmail.com", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+            });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar2, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                    this, drawer, toolbar2, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+            drawer.setDrawerListener(toggle);
+            toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-        image2=(ImageView)findViewById(R.id.image2);
-        viewPager = (ViewPager)findViewById(R.id.tab_viewpager);
+            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+            navigationView.setNavigationItemSelectedListener(this);
+            image2 = (ImageView) findViewById(R.id.image2);
+            viewPager = (ViewPager) findViewById(R.id.tab_viewpager);
 
 
             setupViewPager(viewPager);
 
 
-        TabLayout tabLayout=(TabLayout)findViewById(R.id.tabLayout);
-        tabLayout.setupWithViewPager(viewPager);
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-            }
+            TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+            tabLayout.setupWithViewPager(viewPager);
+            tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                @Override
+                public void onTabSelected(TabLayout.Tab tab) {
+                    viewPager.setCurrentItem(tab.getPosition());
+                }
 
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
+                @Override
+                public void onTabUnselected(TabLayout.Tab tab) {
 
-            }
+                }
 
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
+                @Override
+                public void onTabReselected(TabLayout.Tab tab) {
 
-            }
-        });
+                }
+            });
+        }
     }
 
 
@@ -181,15 +182,6 @@ public class Chapters extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        else if (id == R.id.action_theme1) {
-
-                        return true;
-                   }
-
 
 
         return super.onOptionsItemSelected(item);
@@ -205,25 +197,12 @@ public class Chapters extends AppCompatActivity
             viewPager.setCurrentItem(0);
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
-            viewPager.setCurrentItem(0);
-        } else if (id == R.id.nav_slideshow) {
-
-            viewPager.setCurrentItem(0);
-        } else if (id == R.id.signout3) {
+            startActivity(new Intent(this,AboutUs.class));
+        }  else if (id == R.id.signout3) {
             firebaseAuth2.signOut();
             finish();
             startActivity(new Intent(this,MainActivity.class));
       
-        } else if (id == R.id.nav_share) {
-
-            startActivity(new Intent(this,AboutUs.class));
-        } else if (id == R.id.nav_send) {
-
-        } else if (id == R.id.signout3) {
-         firebaseAuth2.signOut();
-            finish();
-            startActivity(new Intent(this,MainActivity.class));
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

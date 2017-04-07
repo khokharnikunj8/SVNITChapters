@@ -85,7 +85,7 @@ public class AboutUs extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
 
-                        startActivity(new Intent(AboutUs.this, activepost.class).putExtra("publish", (Parcelable) model));
+                        startActivity(new Intent(AboutUs.this, activepost.class).putExtra("publish", model));
 
                     }
                 });

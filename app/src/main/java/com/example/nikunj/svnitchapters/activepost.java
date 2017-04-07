@@ -40,7 +40,7 @@ public class activepost extends AppCompatActivity {
         getSupportActionBar().hide();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent i = getIntent();
-        pb = (publish) i.getParcelableExtra("publish");
+        pb = i.getParcelableExtra("publish");
         postimage4=(ImageView)findViewById(R.id.postimage4);
         desc4=(TextView)findViewById(R.id.desc4);
 

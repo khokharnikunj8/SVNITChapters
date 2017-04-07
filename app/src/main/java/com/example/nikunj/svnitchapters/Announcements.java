@@ -80,7 +80,7 @@ public class Announcements extends Fragment {
                             @Override
                             public void onClick(View v) {
 
-                                startActivity(new Intent(getActivity(), activepost.class).putExtra("publish", (Parcelable) model));
+                                startActivity(new Intent(getActivity(), activepost.class).putExtra("publish", model));
 
                             }
                         });

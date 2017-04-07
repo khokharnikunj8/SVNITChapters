@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.firebase.client.Firebase;
 import com.google.firebase.database.FirebaseDatabase;
@@ -13,7 +15,12 @@ public class Splash extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity_splash);
+        getSupportActionBar().hide();
         new Handler().postDelayed(new Runnable() {
 
             /*
@@ -27,7 +34,7 @@ public class Splash extends AppCompatActivity {
                 // Start your app main activity
                 FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
-                Intent i = new Intent(Splash.this, MainActivity.class);
+                Intent i = new Intent(Splash.this, Chapters.class);
                 startActivity(i);
 
                 // close this activity
