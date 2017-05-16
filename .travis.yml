@@ -1,75 +1,29 @@
-language: android
-android:
-  components:
-    - build-tools-25.0.2
-
-notifications:
-  email: false
-
-before_install:
-
-  # for gradle output style
-  - export TERM=dumb
-
-  # environment info
-  - ./gradlew -v
-  - uname -a
-
-# Let's try to build...
-script: ./gradlew clean build
-Here, the "old" travis.yml file:
 language: java
-
 jdk: oraclejdk7
-
 env:
-  global:
-    - ANDROID_SDK_VERSION="r22.6.2"
-
-notifications:
-  email: false
-
+    matrix:
+    - ANDROID_SDKS=android-22            ANDROID_TARGET=android-22   ANDROID_ABI=armeabi
+    - ANDROID_SDKS=android-21           ANDROID_TARGET=android-21  ANDROID_ABI=armeabi
+    - ANDROID_SDKS=sysimg-16            ANDROID_TARGET=android-16  ANDROID_ABI=armeabi-v7a
+    - ANDROID_SDKS=android-17,sysimg-17 ANDROID_TARGET=android-17  ANDROID_ABI=armeabi-v7a
 before_install:
+    # Install base Android SDK
+    - sudo apt-get update -qq
+    - if [ `uname -m` = x86_64 ]; then sudo apt-get install -qq --force-yes libgd2-xpm ia32-libs ia32-libs-multiarch; fi
+    - wget http://dl.google.com/android/android-sdk_r21.0.1-linux.tgz
+    - tar xzf android-sdk_r21.0.1-linux.tgz
+    - export ANDROID_HOME=$PWD/android-sdk-linux
+    - export PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
 
-  # environment info
-  - chmod +x gradlew
-  - gradle -v
-  - uname -a
+    # Install required Android components.
+    - android update sdk --filter platform-tools,android-16,extra-android-support,$ANDROID_SDKS --no-ui --force
 
-  # required libs for android build tools
-  # Update a system for ia32 libraries
-  - sudo apt-get update -qq
-  - if [ `uname -m` = x86_64 ]; then sudo apt-get update; fi
-  - if [ `uname -m` = x86_64 ]; then sudo apt-get install -qq --force-yes libgd2-xpm ia32-libs ia32-libs-multiarch; fi
+    # Create and start emulator
+    - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
+    - emulator -avd test -no-skin -no-audio -no-window &
 
-  # for gradle output style
-  - export TERM=dumb
+before_script:
+    # Make sure the emulator has started before running tests
+    - ./wait_for_emulator
 
-  # newer version of gradle
-  # - wget http://services.gradle.org/distributions/gradle-1.11-bin.zip
-  # - unzip -qq gradle-1.11-bin.zip
-  # - export GRADLE_HOME=$PWD/gradle-1.11
-  # - export PATH=$GRADLE_HOME/bin:$PATH
-
-  # just to test gradle version, against our provided one
-  - gradle -v
-
-  # newest android SDK
-  - wget http://dl.google.com/android/android-sdk_${ANDROID_SDK_VERSION}-linux.tgz
-  - tar -zxf android-sdk_${ANDROID_SDK_VERSION}-linux.tgz
-  - export ANDROID_HOME=`pwd`/android-sdk-linux
-  - export PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
-
-  # manually set sdk.dir variable, according to local paths
-  - echo "sdk.dir=$ANDROID_HOME" > local.properties
-
-  # Install required components.
-  # For a full list, run `android list sdk -a --extended`
-  - echo yes | android update sdk --filter platform-tools --no-ui --force > /dev/null
-  - echo yes | android update sdk --all --filter build-tools-25.0.2 --no-ui --force > /dev/null
-  - echo yes | android update sdk --filter android-22 --no-ui --force > /dev/null
-  - echo yes | android update sdk --filter extra-android-support --no-ui --force > /dev/null
-  - echo yes | android update sdk --filter extra-android-m2repository --no-ui --force > /dev/null
-
-# Let's try to build...
-script: gradle check
+script: mvn install -Pintegration-tests -Dandroid.device=test
