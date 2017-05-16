@@ -8,4 +8,6 @@ android:
 
 jdk: oraclejdk8
 
-script: ./gradlew testDebug
+script:
+    - chmod +x gradlew
+    - ./gradlew testDebug
