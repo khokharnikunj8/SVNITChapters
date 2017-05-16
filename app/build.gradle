@@ -5,8 +5,8 @@ android {
     buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "com.example.nikunj.svnitchapters"
-        minSdkVersion 21
-        targetSdkVersion 25
+        minSdkVersion 20
+        targetSdkVersion 22
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
